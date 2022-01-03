@@ -21,18 +21,27 @@ function startStop() {
   if (startStopButton.classList.contains("start")) {
     startStopButton.classList.remove("start");
     startStopButton.classList.add("stop");
-    startTimer();
+    let interval = setInterval(function () {
+      stopWatch.count++;
+    }, 1000);
   } else {
     startStopButton.classList.remove("stop");
     startStopButton.classList.add("start");
-    stopTimer();
+    clearInterval(interval);
   }
 }
 
+//use intervals to add to stopwatch.count
+//when you hit 60, then add to minutes... etc
+
+//May not need to use?
 function startTimer() {
-  console.log("startTimer");
+  let interval = setInterval(function () {
+    stopWatch.count++;
+  }, 1000);
 }
 
 function stopTimer() {
   console.log("stopTimer");
+  clearInterval(interval);
 }
