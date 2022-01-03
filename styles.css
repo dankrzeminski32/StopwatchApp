@@ -382,13 +382,31 @@ body h1 {
   height: 50vh;
 }
 
-.start-stop {
+.start {
   width: 50%;
   background-color: green;
   font-size: 10rem;
 }
 
-.start-stop:hover {
+.start::after {
+  content: "Start";
+}
+
+.start:hover {
+  cursor: pointer;
+}
+
+.stop {
+  width: 50%;
+  background-color: red;
+  font-size: 10rem;
+}
+
+.stop::after {
+  content: "Stop";
+}
+
+.stop:hover {
   cursor: pointer;
 }
 
