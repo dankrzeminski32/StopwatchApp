@@ -9,18 +9,21 @@ let resetButton = document.querySelector(".reset");
 console.log(resetButton);
 
 var stopWatch = {
-  start: 0,
-  count: 0,
+  countMilSeconds: 0.0,
+  countSeconds: 0,
+  countMinutes: 0,
+  countHours: 0,
 };
 
 var interval = null;
 
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
+resetButton.addEventListener("click", resetTimer);
 
 //Functions
 
-timeDisplay.innerHTML = stopWatch.count;
+timeDisplay.innerHTML = stopWatch.countMilSeconds;
 
 function startStop() {
   if (startStopButton.classList.contains("start")) {
@@ -40,13 +43,60 @@ function startStop() {
 //May not need to use?
 function startTimer() {
   interval = setInterval(function () {
-    stopWatch.count++;
-    console.log(stopWatch.count);
-    timeDisplay.innerHTML = stopWatch.count;
-  }, 1000);
+    if (stopWatch.countHours > 0) {
+      stopWatch.countMilSeconds += 1;
+      milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
+      seconds = stopWatch.countSeconds.toString().padStart(2, "0");
+      minutes = stopWatch.countMinutes.toString().padStart(2, "0");
+      hours = stopWatch.countHours.toString().padStart(2, "0");
+      timeDisplay.innerHTML =
+        hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+      if (milliseconds === "100") {
+        stopWatch.countSeconds += 1;
+        stopWatch.countMilSeconds = 0;
+      }
+      if (seconds === "60") {
+        stopWatch.countMinutes += 1;
+        stopWatch.countSeconds = 0;
+      }
+      if (minutes === "60") {
+        stopWatch.countHours += 1;
+        stopWatch.countMinutes = 0;
+      }
+    } else {
+      stopWatch.countMilSeconds += 1;
+      milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
+      seconds = stopWatch.countSeconds.toString().padStart(2, "0");
+      minutes = stopWatch.countMinutes.toString().padStart(2, "0");
+      timeDisplay.innerHTML = minutes + ":" + seconds + "." + milliseconds;
+      if (milliseconds === "100") {
+        stopWatch.countSeconds += 1;
+        stopWatch.countMilSeconds = 0;
+      }
+      if (seconds === "60") {
+        stopWatch.countMinutes += 1;
+        stopWatch.countSeconds = 0;
+      }
+      if (minutes === "60") {
+        stopWatch.countHours += 1;
+        stopWatch.countMinutes = 0;
+      }
+    }
+  }, 1);
 }
 
 function stopTimer() {
   console.log("stopTimer");
   clearInterval(interval);
+}
+
+function resetTimer() {
+  stopWatch.countHours = 0;
+  stopWatch.countMilSeconds = 0;
+  stopWatch.countMinutes = 0;
+  stopWatch.countSeconds = 0;
+  milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
+  seconds = stopWatch.countSeconds.toString().padStart(2, "0");
+  minutes = stopWatch.countMinutes.toString().padStart(2, "0");
+  timeDisplay.innerHTML = minutes + ":" + seconds + "." + milliseconds;
 }
