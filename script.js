@@ -12,6 +12,8 @@ var stopWatch = {
   start: 0,
   count: 0,
 };
+
+var interval = null;
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
 
@@ -21,13 +23,11 @@ function startStop() {
   if (startStopButton.classList.contains("start")) {
     startStopButton.classList.remove("start");
     startStopButton.classList.add("stop");
-    let interval = setInterval(function () {
-      stopWatch.count++;
-    }, 1000);
+    startTimer();
   } else {
     startStopButton.classList.remove("stop");
     startStopButton.classList.add("start");
-    clearInterval(interval);
+    stopTimer();
   }
 }
 
@@ -36,8 +36,9 @@ function startStop() {
 
 //May not need to use?
 function startTimer() {
-  let interval = setInterval(function () {
+  interval = setInterval(function () {
     stopWatch.count++;
+    console.log(stopWatch.count);
   }, 1000);
 }
 
