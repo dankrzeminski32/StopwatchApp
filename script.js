@@ -14,10 +14,13 @@ var stopWatch = {
 };
 
 var interval = null;
+
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
 
 //Functions
+
+timeDisplay.innerHTML = stopWatch.count;
 
 function startStop() {
   if (startStopButton.classList.contains("start")) {
@@ -39,6 +42,7 @@ function startTimer() {
   interval = setInterval(function () {
     stopWatch.count++;
     console.log(stopWatch.count);
+    timeDisplay.innerHTML = stopWatch.count;
   }, 1000);
 }
 
