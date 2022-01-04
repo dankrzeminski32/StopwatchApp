@@ -360,6 +360,7 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: #bfbfbf;
+  overflow: hidden;
 }
 
 body h1 {
@@ -367,8 +368,36 @@ body h1 {
   padding: 0;
 }
 
+#home-screen {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+}
+
+#stopwatch-button {
+  font-size: 4rem;
+  padding: 2rem;
+  background-color: green;
+  color: white;
+}
+
+#stopwatch-button:hover {
+  cursor: pointer;
+}
+
+#timer-button {
+  font-size: 4rem;
+  padding: 2rem;
+  background-color: greenyellow;
+}
+
+#timer-button:hover {
+  cursor: pointer;
+}
+
 .time-container {
-  height: 50vh;
+  height: 49vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -388,6 +417,7 @@ body h1 {
   width: 50%;
   background-color: green;
   font-size: 10rem;
+  margin-right: 1rem;
 }
 
 .start::after {
@@ -402,6 +432,7 @@ body h1 {
   width: 50%;
   background-color: red;
   font-size: 10rem;
+  margin-right: 1rem;
 }
 
 .stop::after {
@@ -417,8 +448,23 @@ body h1 {
   background-color: black;
   color: white;
   font-size: 10rem;
+  margin-left: 1rem;
 }
 
 .reset:hover {
   cursor: pointer;
+}
+
+#stopwatch {
+  display: none;
+}
+
+#go-back {
+  height: 1vh;
+  padding: 1rem;
+}
+
+.back-button {
+  font-size: 2rem;
+  padding: 0.5rem;
 }

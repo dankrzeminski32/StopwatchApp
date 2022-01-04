@@ -8,10 +8,20 @@
     <title>Stopwatch App</title>
   </head>
   <body>
-    <div class="time-container"><h1 class="time"></h1></div>
-    <div class="main-flex">
-      <button class="start"></button>
-      <button class="reset">Reset</button>
+    <div id="home-screen">
+      <button id="stopwatch-button">Stopwatch</button>
+      <button id="timer-button">Timer</button>
+    </div>
+
+    <div id="stopwatch">
+      <div id="go-back"><button class="back-button">Back</button></div>
+      <div class="time-container">
+        <h1 class="time"></h1>
+      </div>
+      <div class="main-flex">
+        <button class="start"></button>
+        <button class="reset">Reset</button>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>

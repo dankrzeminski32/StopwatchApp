@@ -1,12 +1,12 @@
 //Selectors
 let timeDisplay = document.querySelector(".time");
-console.log(timeDisplay);
-
 let startStopButton = document.querySelector(".start");
-console.log(startStopButton);
-
 let resetButton = document.querySelector(".reset");
-console.log(resetButton);
+let stopwatchButton = document.querySelector("#stopwatch-button");
+let timerButton = document.querySelector("#timer-button");
+let homeScreen = document.querySelector("#home-screen");
+let stopwatchView = document.querySelector("#stopwatch");
+let backButton = document.querySelector(".back-button");
 
 var stopWatch = {
   countMilSeconds: 0.0,
@@ -20,10 +20,15 @@ var interval = null;
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
 resetButton.addEventListener("click", resetTimer);
+stopwatchButton.addEventListener("click", selectStopwatch);
+backButton.addEventListener("click", goBack);
 
 //Functions
 
-timeDisplay.innerHTML = stopWatch.countMilSeconds;
+milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
+seconds = stopWatch.countSeconds.toString().padStart(2, "0");
+minutes = stopWatch.countMinutes.toString().padStart(2, "0");
+timeDisplay.innerHTML = minutes + ":" + seconds + "." + milliseconds;
 
 function startStop() {
   if (startStopButton.classList.contains("start")) {
@@ -98,5 +103,19 @@ function resetTimer() {
   milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
   seconds = stopWatch.countSeconds.toString().padStart(2, "0");
   minutes = stopWatch.countMinutes.toString().padStart(2, "0");
+  stopTimer();
+  startStopButton.classList.remove("stop");
+  startStopButton.classList.add("start");
   timeDisplay.innerHTML = minutes + ":" + seconds + "." + milliseconds;
+}
+
+function selectStopwatch() {
+  stopwatchView.style.display = "block";
+  homeScreen.style.display = "none";
+}
+
+function goBack() {
+  stopwatchView.style.display = "none";
+  homeScreen.style.display = "flex";
+  resetTimer();
 }
