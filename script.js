@@ -1,15 +1,28 @@
 //Selectors
-let timeDisplay = document.querySelector(".time");
-let startStopButton = document.querySelector(".start");
-let resetButton = document.querySelector(".reset");
-let stopwatchButton = document.querySelector("#stopwatch-button");
-let timerButton = document.querySelector("#timer-button");
-let timerView = document.querySelector("#timerView");
-let homeScreen = document.querySelector("#home-screen");
-let stopwatchView = document.querySelector("#stopwatch");
-let stopwatchBackButton = document.querySelector("#stopwatch-back-button");
-let timerDisplay = document.querySelector(".timer-display");
-let timerBackButton = document.querySelector("#timer-back-button");
+const timeDisplay = document.querySelector(".time");
+const startStopButton = document.querySelector(".start");
+const resetButton = document.querySelector(".reset");
+const stopwatchButton = document.querySelector("#stopwatch-button");
+const timerButton = document.querySelector("#timer-button");
+const timerView = document.querySelector("#timerView");
+const homeScreen = document.querySelector("#home-screen");
+const stopwatchView = document.querySelector("#stopwatch");
+const stopwatchBackButton = document.querySelector("#stopwatch-back-button");
+const timerDisplay = document.querySelector(".timer-display");
+const timerBackButton = document.querySelector("#timer-back-button");
+const openModalButtons = document.querySelectorAll("[data-modal-target]");
+const closeModalButtons = document.querySelectorAll("[data-close-button]");
+const overlay = document.getElementById("overlay");
+const addHours = document.querySelector("[data-hours]");
+const addMinutes = document.querySelector("[data-minutes]");
+const addSeconds = document.querySelector("[data-seconds]");
+const addSecondsButton = document.querySelector("[data-add-seconds]");
+const addMinutesButton = document.querySelector("[data-add-minutes]");
+const addHoursButton = document.querySelector("[data-add-hours]");
+const subSecondsButton = document.querySelector("[data-decrease-seconds]");
+const subMinutesButton = document.querySelector("[data-decrease-minutes]");
+const subHoursButton = document.querySelector("[data-decrease-hours]");
+const addNewTimer = document.querySelector("[data-add-new-timer]");
 
 var stopWatch = {
   countMilSeconds: 0.0,
@@ -33,8 +46,52 @@ stopwatchButton.addEventListener("click", selectStopwatch);
 stopwatchBackButton.addEventListener("click", goBackFromStopwatch);
 timerButton.addEventListener("click", selectTimer);
 timerBackButton.addEventListener("click", goBackFromTimer);
+addSecondsButton.addEventListener("click", addSecondsToTimer);
+subSecondsButton.addEventListener("click", subSecondsToTimer);
+addMinutesButton.addEventListener("click", addMinutesToTimer);
+subMinutesButton.addEventListener("click", subMinutesToTimer);
+addHoursButton.addEventListener("click", addHoursToTimer);
+subHoursButton.addEventListener("click", subHoursToTimer);
+addNewTimer.addEventListener("click", addNewTimers);
+
+overlay.addEventListener("click", () => {
+  const modals = document.querySelectorAll(".modal.active");
+  modals.forEach((modal) => {
+    closeModal(modal);
+  });
+});
+
+openModalButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modal = document.querySelector(button.dataset.modalTarget);
+    openModal(modal);
+  });
+});
+
+closeModalButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modal = button.closest(".modal");
+    closeModal(modal);
+  });
+});
+
 //Functions
 
+addHours.innerHTML = timer.countHours;
+addMinutes.innerHTML = timer.countMinutes;
+addSeconds.innerHTML = timer.countSeconds;
+
+function openModal(modal) {
+  if (modal == null) return;
+  modal.classList.add("active");
+  overlay.classList.add("active");
+}
+
+function closeModal(modal) {
+  if (modal == null) return;
+  modal.classList.remove("active");
+  overlay.classList.remove("active");
+}
 //start our stopwatch display as 00:00.00
 milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
 seconds = stopWatch.countSeconds.toString().padStart(2, "0");
@@ -149,4 +206,41 @@ function selectTimer() {
 function goBackFromTimer() {
   timerView.style.display = "none";
   homeScreen.style.display = "flex";
+}
+
+function addSecondsToTimer() {
+  timer.countSeconds += 1;
+  addSeconds.innerHTML = timer.countSeconds;
+}
+
+function subSecondsToTimer() {
+  timer.countSeconds -= 1;
+  addSeconds.innerHTML = timer.countSeconds;
+}
+
+function addMinutesToTimer() {
+  timer.countMinutes += 1;
+  addMinutes.innerHTML = timer.countMinutes;
+}
+
+function subMinutesToTimer() {
+  timer.countMinutes -= 1;
+  addMinutes.innerHTML = timer.countMinutes;
+}
+
+function addHoursToTimer() {
+  timer.countHours += 1;
+  addHours.innerHTML = timer.countHours;
+}
+
+function subHoursToTimer() {
+  timer.countHours -= 1;
+  addHours.innerHTML = timer.countHours;
+}
+
+function addNewTimers() {
+  timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+  timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+  timerHours = timer.countHours.toString().padStart(2, "0");
+  timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
 }
