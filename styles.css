@@ -468,3 +468,19 @@ body h1 {
   font-size: 2rem;
   padding: 0.5rem;
 }
+
+#timerView {
+  display: none;
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 25vh;
+  width: 50%;
+}
+
+.timer-display {
+  font-size: 4rem;
+}
