@@ -31,7 +31,13 @@
           <div class="addTimer">
             <div id="addHours">
               <label for="hourInput">Hours</label>
-              <input id="hourInput" type="number" data-hours placeholder="00" />
+              <input
+                id="hourInput"
+                type="number"
+                data-hours
+                placeholder="00"
+                min="0"
+              />
             </div>
             <div id="addMinutes">
               <label for="minuteInput">Minutes</label>
@@ -40,6 +46,7 @@
                 type="number"
                 data-minutes
                 placeholder="00"
+                min="0"
               />
             </div>
             <div id="addSeconds">
@@ -49,6 +56,7 @@
                 type="number"
                 data-seconds
                 placeholder="00"
+                min="0"
               />
             </div>
           </div>

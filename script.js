@@ -195,13 +195,16 @@ function goBackFromTimer() {
 }
 
 function addNewTimers() {
-  timer.countHours = inputHours.value;
-  timer.countMinutes = inputMinutes.value;
-  timer.countSeconds = inputSeconds.value;
+  timer.countHours = Math.abs(inputHours.value);
+  timer.countMinutes = Math.abs(inputMinutes.value);
+  timer.countSeconds = Math.abs(inputSeconds.value);
   timerSeconds = timer.countSeconds.toString().padStart(2, "0");
   timerMinutes = timer.countMinutes.toString().padStart(2, "0");
   timerHours = timer.countHours.toString().padStart(2, "0");
   timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
+  inputSeconds.value = 0;
+  inputMinutes.value = 0;
+  inputHours.value = 0;
 }
 
 function openModal(modal) {
