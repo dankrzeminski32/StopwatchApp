@@ -8,7 +8,7 @@ const timerView = document.querySelector("#timerView");
 const homeScreen = document.querySelector("#home-screen");
 const stopwatchView = document.querySelector("#stopwatch");
 const stopwatchBackButton = document.querySelector("#stopwatch-back-button");
-const timerDisplay = document.querySelector(".timer-display");
+var timerDisplay = document.querySelector(".timer-display");
 const timerBackButton = document.querySelector("#timer-back-button");
 const openModalButtons = document.querySelectorAll("[data-modal-target]");
 const closeModalButtons = document.querySelectorAll("[data-close-button]");
@@ -18,15 +18,10 @@ const inputMinutes = document.querySelector("[data-minutes]");
 const inputSeconds = document.querySelector("[data-seconds]");
 const addNewTimer = document.querySelectorAll("[data-add-new-timer]");
 const playTimer = document.querySelector("[data-play-button]");
+const timerList = document.querySelector("[data-timer-list]");
 
 var stopWatch = {
   countMilSeconds: 0.0,
-  countSeconds: 0,
-  countMinutes: 0,
-  countHours: 0,
-};
-
-var timer = {
   countSeconds: 0,
   countMinutes: 0,
   countHours: 0,
@@ -41,7 +36,8 @@ stopwatchButton.addEventListener("click", selectStopwatch);
 stopwatchBackButton.addEventListener("click", goBackFromStopwatch);
 timerButton.addEventListener("click", selectTimer);
 timerBackButton.addEventListener("click", goBackFromTimer);
-playTimer.addEventListener("click", startCountingDown);
+timerList.addEventListener("click", startCountingDown);
+// playTimer.addEventListener("click", startCountingDown);
 
 overlay.addEventListener("click", () => {
   const modals = document.querySelectorAll(".modal.active");
@@ -73,11 +69,6 @@ addNewTimer.forEach((newTimer) => {
 });
 
 //Functions
-
-inputHours.innerHTML = timer.countHours;
-inputMinutes.innerHTML = timer.countMinutes;
-inputSeconds.innerHTML = timer.countSeconds;
-
 //start our stopwatch display as 00:00.00
 milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
 seconds = stopWatch.countSeconds.toString().padStart(2, "0");
@@ -85,10 +76,10 @@ minutes = stopWatch.countMinutes.toString().padStart(2, "0");
 timeDisplay.innerHTML = minutes + ":" + seconds + "." + milliseconds;
 
 //start our timer display as 00:00.00
-timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-timerHours = timer.countHours.toString().padStart(2, "0");
-timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
+// timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+// timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+// timerHours = timer.countHours.toString().padStart(2, "0");
+// timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
 
 //This is for switching start -> stop view when someone clicks the button
 function startStop() {
@@ -194,19 +185,6 @@ function goBackFromTimer() {
   homeScreen.style.display = "flex";
 }
 
-function addNewTimers() {
-  timer.countHours = Math.abs(inputHours.value);
-  timer.countMinutes = Math.abs(inputMinutes.value);
-  timer.countSeconds = Math.abs(inputSeconds.value);
-  timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-  timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-  timerHours = timer.countHours.toString().padStart(2, "0");
-  timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
-  inputSeconds.value = 0;
-  inputMinutes.value = 0;
-  inputHours.value = 0;
-}
-
 function openModal(modal) {
   if (modal == null) return;
   modal.classList.add("active");
@@ -219,36 +197,109 @@ function closeModal(modal) {
   overlay.classList.remove("active");
 }
 
-function startCountingDown() {
-  var countDown = setInterval(() => {
-    console.log("test");
-    if (timer.countHours + timer.countMinutes + timer.countSeconds > 0) {
-      if (timer.countSeconds > 0) {
-        timer.countSeconds -= 1;
-        timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-        timerDisplay.innerHTML =
-          timerHours + ":" + timerMinutes + ":" + timerSeconds;
-      } else if (timer.countMinutes > 0) {
-        timer.countMinutes -= 1;
-        timer.countSeconds += 59;
-        timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-        timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-        timerDisplay.innerHTML =
-          timerHours + ":" + timerMinutes + ":" + timerSeconds;
+function addNewTimers() {
+  let timer = {
+    countHours: 0,
+    countMinutes: 0,
+    countSeconds: 0,
+  };
+
+  timer.countHours = Math.abs(inputHours.value);
+  timer.countMinutes = Math.abs(inputMinutes.value);
+  timer.countSeconds = Math.abs(inputSeconds.value);
+
+  if (localStorage.getItem("timers") == "") {
+    let timers = [];
+    localStorage.setItem("timers", JSON.stringify(timers));
+    localStorage.push;
+  } else {
+  }
+}
+
+// function addNewTimers() {
+//   timer.countHours = Math.abs(inputHours.value);
+//   timer.countMinutes = Math.abs(inputMinutes.value);
+//   timer.countSeconds = Math.abs(inputSeconds.value);
+//   timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+//   timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+//   timerHours = timer.countHours.toString().padStart(2, "0");
+//   newTimerDisplay = document.createElement("li");
+//   newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
+//   newTimerDisplay.innerHTML = `
+//   <div class="timer-container">
+//     <button data-modal-target="#modal">Add New Timer</button>
+//     <h1 class="timer-display">${newTime}</h1>
+//     <button data-modal-target="#modal">Edit</button>
+//     <button data-play-button>Play</button>
+//   </div>`;
+//   timerList.appendChild(newTimerDisplay);
+//   inputSeconds.value = 0;
+//   inputMinutes.value = 0;
+//   inputHours.value = 0;
+// }
+
+function startCountingDown(event) {
+  if (event.target && event.target.matches("[data-play-button]")) {
+    relativeTimerPlayButton = event.target;
+    console.log(relativeTimerPlayButton);
+    timeDisplayed = relativeTimerPlayButton.parentNode.children[1];
+    hours = timeDisplayed.innerHTML.split(":")[0];
+    intHours = parseInt(hours);
+    console.log(intHours);
+    //Minutes
+    Minutes = timeDisplayed.innerHTML.split(":")[1];
+    intMinutes = parseInt(Minutes);
+    console.log(intMinutes);
+    //Seconds
+    Seconds = timeDisplayed.innerHTML.split(":")[2];
+    intSeconds = parseInt(Seconds);
+    console.log(intSeconds);
+
+    let thisTimer = {
+      countSeconds: intSeconds,
+      countMinutes: intMinutes,
+      countHours: intHours,
+    };
+
+    timerDisplay = relativeTimerPlayButton.parentNode.children[1];
+
+    var countDown = setInterval(() => {
+      console.log("interval not cleared");
+
+      if (
+        thisTimer.countHours + thisTimer.countMinutes + thisTimer.countSeconds >
+        0
+      ) {
+        if (thisTimer.countSeconds > 0) {
+          console.log("running seconds");
+          thisTimer.countSeconds -= 1;
+          timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
+          timerMinutes = thisTimer.countMinutes.toString().padStart(2, "0");
+          timerHours = timer.countHours.toString().padStart(2, "0");
+          timerDisplay.innerHTML =
+            timerHours + ":" + timerMinutes + ":" + timerSeconds;
+        } else if (timer.countMinutes > 0) {
+          thisTimer.countMinutes -= 1;
+          thisTimer.countSeconds += 59;
+          timerMinutes = thisTimer.countMinutes.toString().padStart(2, "0");
+          timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
+          timerDisplay.innerHTML =
+            timerHours + ":" + timerMinutes + ":" + timerSeconds;
+        } else {
+          thisTimer.countHours -= 1;
+          thisTimer.countMinutes += 59;
+          thisTimer.countSeconds += 59;
+          timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+          timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+          timerHours = timer.countHours.toString().padStart(2, "0");
+          timerDisplay.innerHTML =
+            timerHours + ":" + timerMinutes + ":" + timerSeconds;
+        }
       } else {
-        timer.countHours -= 1;
-        timer.countMinutes += 59;
-        timer.countSeconds += 59;
-        timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-        timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-        timerHours = timer.countHours.toString().padStart(2, "0");
-        timerDisplay.innerHTML =
-          timerHours + ":" + timerMinutes + ":" + timerSeconds;
+        console.log("interval not cleared");
+        clearInterval(countDown);
+        return;
       }
-    } else {
-      console.log("test");
-      clearInterval(countDown);
-      return;
-    }
-  }, 1000);
+    }, 1000);
+  }
 }

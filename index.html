@@ -17,14 +17,19 @@
       <div id="go-back">
         <button class="back-button" id="timer-back-button">Back</button>
       </div>
-      <div class="timer-container">
-        <h1 class="timer-display"></h1>
-        <button data-modal-target="#modal">Open Modal</button>
-        <button data-play-button>Play</button>
-      </div>
+      <ul data-timer-list id="timer-list">
+        <li>
+          <div class="timer-container">
+            <button data-modal-target="#modal">Add New Timer</button>
+            <h1 class="timer-display"></h1>
+            <button data-modal-target="#modal">Edit</button>
+            <button data-play-button>Play</button>
+          </div>
+        </li>
+      </ul>
       <div class="modal" id="modal">
         <div class="modal-header">
-          <div class="title">Example Modal</div>
+          <div class="title">Edit Timer</div>
           <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="modal-body">
