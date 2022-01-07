@@ -13,15 +13,9 @@ const timerBackButton = document.querySelector("#timer-back-button");
 const openModalButtons = document.querySelectorAll("[data-modal-target]");
 const closeModalButtons = document.querySelectorAll("[data-close-button]");
 const overlay = document.getElementById("overlay");
-const addHours = document.querySelector("[data-hours]");
-const addMinutes = document.querySelector("[data-minutes]");
-const addSeconds = document.querySelector("[data-seconds]");
-const addSecondsButton = document.querySelector("[data-add-seconds]");
-const addMinutesButton = document.querySelector("[data-add-minutes]");
-const addHoursButton = document.querySelector("[data-add-hours]");
-const subSecondsButton = document.querySelector("[data-decrease-seconds]");
-const subMinutesButton = document.querySelector("[data-decrease-minutes]");
-const subHoursButton = document.querySelector("[data-decrease-hours]");
+const inputHours = document.querySelector("[data-hours]");
+const inputMinutes = document.querySelector("[data-minutes]");
+const inputSeconds = document.querySelector("[data-seconds]");
 const addNewTimer = document.querySelectorAll("[data-add-new-timer]");
 const playTimer = document.querySelector("[data-play-button]");
 
@@ -47,12 +41,6 @@ stopwatchButton.addEventListener("click", selectStopwatch);
 stopwatchBackButton.addEventListener("click", goBackFromStopwatch);
 timerButton.addEventListener("click", selectTimer);
 timerBackButton.addEventListener("click", goBackFromTimer);
-addSecondsButton.addEventListener("click", addSecondsToTimer);
-subSecondsButton.addEventListener("click", subSecondsToTimer);
-addMinutesButton.addEventListener("click", addMinutesToTimer);
-subMinutesButton.addEventListener("click", subMinutesToTimer);
-addHoursButton.addEventListener("click", addHoursToTimer);
-subHoursButton.addEventListener("click", subHoursToTimer);
 playTimer.addEventListener("click", startCountingDown);
 
 overlay.addEventListener("click", () => {
@@ -86,9 +74,9 @@ addNewTimer.forEach((newTimer) => {
 
 //Functions
 
-addHours.innerHTML = timer.countHours;
-addMinutes.innerHTML = timer.countMinutes;
-addSeconds.innerHTML = timer.countSeconds;
+inputHours.innerHTML = timer.countHours;
+inputMinutes.innerHTML = timer.countMinutes;
+inputSeconds.innerHTML = timer.countSeconds;
 
 //start our stopwatch display as 00:00.00
 milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
@@ -206,40 +194,26 @@ function goBackFromTimer() {
   homeScreen.style.display = "flex";
 }
 
-function addSecondsToTimer() {
-  timer.countSeconds += 1;
-  addSeconds.innerHTML = timer.countSeconds;
-}
-
-function subSecondsToTimer() {
-  timer.countSeconds -= 1;
-  addSeconds.innerHTML = timer.countSeconds;
-}
-
-function addMinutesToTimer() {
-  timer.countMinutes += 1;
-  addMinutes.innerHTML = timer.countMinutes;
-}
-
-function subMinutesToTimer() {
-  timer.countMinutes -= 1;
-  addMinutes.innerHTML = timer.countMinutes;
-}
-
-function addHoursToTimer() {
-  timer.countHours += 1;
-  addHours.innerHTML = timer.countHours;
-}
-
-function subHoursToTimer() {
-  timer.countHours -= 1;
-  addHours.innerHTML = timer.countHours;
-}
-
 function addNewTimers() {
   timerSeconds = timer.countSeconds.toString().padStart(2, "0");
   timerMinutes = timer.countMinutes.toString().padStart(2, "0");
   timerHours = timer.countHours.toString().padStart(2, "0");
+  timerHours = inputHours.innerHTML.replace(/\D/g, "");
+  timerHours = parseInt(timerHours);
+  inputHours.innerHTML = timerHours;
+  timer.countHours = timerHours;
+  console.log(typeof timerHours);
+  //minutes
+  timerMinutes = inputHours.innerHTML.replace(/\D/g, "");
+  timerMinutes = parseInt(timerHours);
+  inputMinutes.innerHTML = timerHours;
+  timer.countMinutes = timerHours;
+  //seconds
+  timerHours = inputHours.innerHTML.replace(/\D/g, "");
+  timerHours = parseInt(timerHours);
+  inputHours.innerHTML = timerHours;
+  timer.countHours = timerHours;
+
   timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
 }
 
@@ -256,12 +230,35 @@ function closeModal(modal) {
 }
 
 function startCountingDown() {
-  setInterval(() => {
-    if (timer.countSeconds) timer.countSeconds -= 1;
-    timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-    timerHours = timer.countHours.toString().padStart(2, "0");
-    timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-    timerDisplay.innerHTML =
-      timerHours + ":" + timerMinutes + ":" + timerSeconds;
+  var countDown = setInterval(() => {
+    console.log("test");
+    if (timer.countHours + timer.countMinutes + timer.countSeconds > 0) {
+      if (timer.countSeconds > 0) {
+        timer.countSeconds -= 1;
+        timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+        timerDisplay.innerHTML =
+          timerHours + ":" + timerMinutes + ":" + timerSeconds;
+      } else if (timer.countMinutes > 0) {
+        timer.countMinutes -= 1;
+        timer.countSeconds += 59;
+        timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+        timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+        timerDisplay.innerHTML =
+          timerHours + ":" + timerMinutes + ":" + timerSeconds;
+      } else {
+        timer.countHours -= 1;
+        timer.countMinutes += 59;
+        timer.countSeconds += 59;
+        timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+        timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+        timerHours = timer.countHours.toString().padStart(2, "0");
+        timerDisplay.innerHTML =
+          timerHours + ":" + timerMinutes + ":" + timerSeconds;
+      }
+    } else {
+      console.log("test");
+      clearInterval(countDown);
+      return;
+    }
   }, 1000);
 }

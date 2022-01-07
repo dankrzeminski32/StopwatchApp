@@ -30,19 +30,26 @@
         <div class="modal-body">
           <div class="addTimer">
             <div id="addHours">
-              <h1 data-hours></h1>
-              <button data-add-hours>UP</button
-              ><button data-decrease-hours>DOWN</button>
+              <label for="hourInput">Hours</label>
+              <input id="hourInput" type="number" data-hours placeholder="00" />
             </div>
             <div id="addMinutes">
-              <h1 data-minutes></h1>
-              <button data-add-minutes>UP</button
-              ><button data-decrease-minutes>DOWN</button>
+              <label for="minuteInput">Minutes</label>
+              <input
+                id="minuteInput"
+                type="number"
+                data-minutes
+                placeholder="00"
+              />
             </div>
             <div id="addSeconds">
-              <h1 data-seconds></h1>
-              <button data-add-seconds>UP</button
-              ><button data-decrease-seconds>DOWN</button>
+              <label for="secondInput">Seconds</label>
+              <input
+                id="secondInput"
+                type="number"
+                data-seconds
+                placeholder="00"
+              />
             </div>
           </div>
           <button data-add-new-timer id="addNewTimer">Add Timer</button>
