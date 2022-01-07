@@ -195,25 +195,12 @@ function goBackFromTimer() {
 }
 
 function addNewTimers() {
+  timer.countHours = inputHours.value;
+  timer.countMinutes = inputMinutes.value;
+  timer.countSeconds = inputSeconds.value;
   timerSeconds = timer.countSeconds.toString().padStart(2, "0");
   timerMinutes = timer.countMinutes.toString().padStart(2, "0");
   timerHours = timer.countHours.toString().padStart(2, "0");
-  timerHours = inputHours.innerHTML.replace(/\D/g, "");
-  timerHours = parseInt(timerHours);
-  inputHours.innerHTML = timerHours;
-  timer.countHours = timerHours;
-  console.log(typeof timerHours);
-  //minutes
-  timerMinutes = inputHours.innerHTML.replace(/\D/g, "");
-  timerMinutes = parseInt(timerHours);
-  inputMinutes.innerHTML = timerHours;
-  timer.countMinutes = timerHours;
-  //seconds
-  timerHours = inputHours.innerHTML.replace(/\D/g, "");
-  timerHours = parseInt(timerHours);
-  inputHours.innerHTML = timerHours;
-  timer.countHours = timerHours;
-
   timerDisplay.innerHTML = timerHours + ":" + timerMinutes + ":" + timerSeconds;
 }
 
