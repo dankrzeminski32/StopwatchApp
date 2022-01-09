@@ -303,13 +303,10 @@ function startCountingDown(event) {
 
     timers = JSON.parse(localStorage.getItem("timers"));
 
-    console.log(timers.length);
     let relativeTimerIndex;
 
     for (let i = 0; i < timers.length; i++) {
-      console.log(timers[i].title);
       if (timers[i].title == relativeTimerTitle) {
-        console.log("true");
         relativeTimerIndex = i;
         break;
       } else {
@@ -319,20 +316,24 @@ function startCountingDown(event) {
 
     let thisTimer = timers[relativeTimerIndex];
     let timerDisplay;
+
+    console.log(event.target.previousElementSibling.previousElementSibling);
+    timerDisplay = event.target.previousElementSibling.previousElementSibling;
+
+    /*
     let lis = document.getElementById("timer-list").getElementsByTagName("li");
-    console.log(lis);
     for (let i = 0; i < lis.length; i++) {
       if (lis[i].firstChild.childNodes[1].innerText == thisTimer.title) {
         timerDisplay = lis[i].firstChild.childNodes[3];
+        console.log(timerDisplay);
       } else {
         continue;
       }
     }
-    console.log(timerDisplay);
-    var countDown = setInterval(() => {
-      console.log(timerDisplay);
-      console.log(thisTimer);
+    */
 
+    var countDown = setInterval(() => {
+      console.log(thisTimer);
       if (
         thisTimer.countHours + thisTimer.countMinutes + thisTimer.countSeconds >
         0
