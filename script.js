@@ -16,6 +16,7 @@ const overlay = document.getElementById("overlay");
 const inputHours = document.querySelector("[data-hours]");
 const inputMinutes = document.querySelector("[data-minutes]");
 const inputSeconds = document.querySelector("[data-seconds]");
+const inputTitle = document.querySelector("[data-title]");
 const addNewTimer = document.querySelectorAll("[data-add-new-timer]");
 const playTimer = document.querySelector("[data-play-button]");
 const timerList = document.querySelector("[data-timer-list]");
@@ -28,6 +29,10 @@ var stopWatch = {
 };
 
 var interval = null;
+
+localStorage.clear();
+addNewTimers();
+getTimers();
 
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
@@ -189,6 +194,10 @@ function openModal(modal) {
   if (modal == null) return;
   modal.classList.add("active");
   overlay.classList.add("active");
+  inputSeconds.value = 0;
+  inputMinutes.value = 0;
+  inputHours.value = 0;
+  inputTitle.value = 0;
 }
 
 function closeModal(modal) {
@@ -199,6 +208,7 @@ function closeModal(modal) {
 
 function addNewTimers() {
   let timer = {
+    title: "",
     countHours: 0,
     countMinutes: 0,
     countSeconds: 0,
@@ -207,13 +217,44 @@ function addNewTimers() {
   timer.countHours = Math.abs(inputHours.value);
   timer.countMinutes = Math.abs(inputMinutes.value);
   timer.countSeconds = Math.abs(inputSeconds.value);
+  timer.title = titleInput.value;
 
-  if (localStorage.getItem("timers") == "") {
-    let timers = [];
-    localStorage.setItem("timers", JSON.stringify(timers));
-    localStorage.push;
+  let timers;
+
+  if (localStorage.getItem("timers") === null) {
+    timers = [];
   } else {
+    timers = JSON.parse(localStorage.getItem("timers"));
   }
+
+  timers.push(timer);
+  localStorage.setItem("timers", JSON.stringify(timers));
+}
+
+function getTimers() {
+  let timers;
+
+  if (localStorage.getItem("timers") === null) {
+    timers = [];
+  } else {
+    timers = JSON.parse(localStorage.getItem("timers"));
+  }
+
+  timers.forEach(function (timer) {
+    newTimerDisplay = document.createElement("li");
+    timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+    timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+    timerHours = timer.countHours.toString().padStart(2, "0");
+    newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
+    newTimerDisplay.innerHTML = `<div class="timer-container">
+      <h1>${timer.title}</h1>
+     <h1 class="timer-display">${newTime}</h1>
+     <button data-modal-target="#modal">Edit</button>
+     <button data-play-button>Play</button>
+   </div>`;
+
+    timerList.appendChild(newTimerDisplay);
+  });
 }
 
 // function addNewTimers() {
@@ -240,28 +281,27 @@ function addNewTimers() {
 
 function startCountingDown(event) {
   if (event.target && event.target.matches("[data-play-button]")) {
-    relativeTimerPlayButton = event.target;
-    console.log(relativeTimerPlayButton);
-    timeDisplayed = relativeTimerPlayButton.parentNode.children[1];
-    hours = timeDisplayed.innerHTML.split(":")[0];
-    intHours = parseInt(hours);
-    console.log(intHours);
-    //Minutes
-    Minutes = timeDisplayed.innerHTML.split(":")[1];
-    intMinutes = parseInt(Minutes);
-    console.log(intMinutes);
-    //Seconds
-    Seconds = timeDisplayed.innerHTML.split(":")[2];
-    intSeconds = parseInt(Seconds);
-    console.log(intSeconds);
+    relativeTimerTitle =
+      event.target.previousElementSibling.previousElementSibling
+        .previousElementSibling.innerText;
 
-    let thisTimer = {
-      countSeconds: intSeconds,
-      countMinutes: intMinutes,
-      countHours: intHours,
-    };
+    console.log(relativeTimerTitle);
 
-    timerDisplay = relativeTimerPlayButton.parentNode.children[1];
+    timers = JSON.parse(localStorage.getItem("timers"));
+
+    let relativeTimerIndex = "";
+
+    for (let i = 0; i < timers.length; i++) {
+      if (timers[i].title === relativeTimerTitle) {
+        console.log("true");
+        relativeTimerIndex = i;
+        break;
+      } else {
+        return;
+      }
+    }
+
+    console.log(relativeTimerIndex);
 
     var countDown = setInterval(() => {
       console.log("interval not cleared");
