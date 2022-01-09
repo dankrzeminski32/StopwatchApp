@@ -8,7 +8,7 @@ const timerView = document.querySelector("#timerView");
 const homeScreen = document.querySelector("#home-screen");
 const stopwatchView = document.querySelector("#stopwatch");
 const stopwatchBackButton = document.querySelector("#stopwatch-back-button");
-var timerDisplay = document.querySelector(".timer-display");
+//var timerDisplay = document.querySelector(".timer-display");
 const timerBackButton = document.querySelector("#timer-back-button");
 const openModalButtons = document.querySelectorAll("[data-modal-target]");
 const closeModalButtons = document.querySelectorAll("[data-close-button]");
@@ -301,8 +301,6 @@ function startCountingDown(event) {
       event.target.previousElementSibling.previousElementSibling
         .previousElementSibling.innerText;
 
-    console.log(relativeTimerTitle);
-
     timers = JSON.parse(localStorage.getItem("timers"));
 
     console.log(timers.length);
@@ -319,15 +317,12 @@ function startCountingDown(event) {
       }
     }
 
-    console.log(relativeTimerIndex);
-
     let thisTimer = timers[relativeTimerIndex];
-    console.log(thisTimer);
-
+    let timerDisplay;
     let lis = document.getElementById("timer-list").getElementsByTagName("li");
     console.log(lis);
     for (let i = 0; i < lis.length; i++) {
-      if (lis[i].firstChild.childNodes[1].innerText == relativeTimerTitle) {
+      if (lis[i].firstChild.childNodes[1].innerText == thisTimer.title) {
         timerDisplay = lis[i].firstChild.childNodes[3];
       } else {
         continue;
@@ -335,8 +330,9 @@ function startCountingDown(event) {
     }
     console.log(timerDisplay);
     var countDown = setInterval(() => {
-      console.log(thisTimer);
       console.log(timerDisplay);
+      console.log(thisTimer);
+
       if (
         thisTimer.countHours + thisTimer.countMinutes + thisTimer.countSeconds >
         0
