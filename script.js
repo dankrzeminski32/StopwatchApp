@@ -320,49 +320,55 @@ function startCountingDown(event) {
     }
 
     console.log(relativeTimerIndex);
-    console.log(relativeTimerIndex);
-    console.log(relativeTimerIndex);
 
     let thisTimer = timers[relativeTimerIndex];
     console.log(thisTimer);
 
+    let lis = document.getElementById("timer-list").getElementsByTagName("li");
+    console.log(lis);
+    for (let i = 0; i < lis.length; i++) {
+      if (lis[i].firstChild.childNodes[1].innerText == relativeTimerTitle) {
+        timerDisplay = lis[i].firstChild.childNodes[3];
+      } else {
+        continue;
+      }
+    }
+    console.log(timerDisplay);
     var countDown = setInterval(() => {
-      console.log("interval not cleared");
-
+      console.log(thisTimer);
+      console.log(timerDisplay);
       if (
         thisTimer.countHours + thisTimer.countMinutes + thisTimer.countSeconds >
         0
       ) {
         if (thisTimer.countSeconds > 0) {
-          console.log("running seconds");
           thisTimer.countSeconds -= 1;
           timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
           timerMinutes = thisTimer.countMinutes.toString().padStart(2, "0");
-          timerHours = timer.countHours.toString().padStart(2, "0");
-          timerDisplay.innerHTML =
+          timerHours = thisTimer.countHours.toString().padStart(2, "0");
+          timerDisplay.innerText =
             timerHours + ":" + timerMinutes + ":" + timerSeconds;
-        } else if (timer.countMinutes > 0) {
+        } else if (thisTimer.countMinutes > 0) {
           thisTimer.countMinutes -= 1;
           thisTimer.countSeconds += 59;
           timerMinutes = thisTimer.countMinutes.toString().padStart(2, "0");
           timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
-          timerDisplay.innerHTML =
+          timerDisplay.innerText =
             timerHours + ":" + timerMinutes + ":" + timerSeconds;
         } else {
           thisTimer.countHours -= 1;
           thisTimer.countMinutes += 59;
           thisTimer.countSeconds += 59;
-          timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-          timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-          timerHours = timer.countHours.toString().padStart(2, "0");
-          timerDisplay.innerHTML =
+          timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
+          timerMinutes = thisTimer.countMinutes.toString().padStart(2, "0");
+          timerHours = thisTimer.countHours.toString().padStart(2, "0");
+          timerDisplay.innerText =
             timerHours + ":" + timerMinutes + ":" + timerSeconds;
         }
       } else {
-        console.log("interval not cleared");
         clearInterval(countDown);
         return;
       }
-    }, 1000);
+    }, 5000);
   }
 }
