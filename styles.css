@@ -369,30 +369,36 @@ body h1 {
 }
 
 #home-screen {
+  height: 6vh;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
+  background-color: black;
+  padding: 3rem;
 }
 
 #stopwatch-button {
-  font-size: 4rem;
-  padding: 2rem;
-  background-color: green;
-  color: white;
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: darkgrey;
+  color: black;
 }
 
 #stopwatch-button:hover {
   cursor: pointer;
+  opacity: 0.5;
+  background-color: lightgrey;
 }
 
 #timer-button {
-  font-size: 4rem;
-  padding: 2rem;
-  background-color: greenyellow;
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: darkgrey;
 }
 
 #timer-button:hover {
+  background-color: lightgrey;
+  opacity: 0.5;
   cursor: pointer;
 }
 
@@ -410,7 +416,7 @@ body h1 {
 .main-flex {
   display: flex;
   height: 50vh;
-  padding: 5rem;
+  padding: 7rem;
 }
 
 .start {
@@ -453,15 +459,6 @@ body h1 {
 
 .reset:hover {
   cursor: pointer;
-}
-
-#stopwatch {
-  display: none;
-}
-
-#go-back {
-  height: 1vh;
-  padding: 0.5rem;
 }
 
 .back-button {

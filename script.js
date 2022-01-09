@@ -31,15 +31,12 @@ var stopWatch = {
 var interval = null;
 
 localStorage.clear();
-addNewTimers();
-
+getTimers();
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
 resetButton.addEventListener("click", resetTimer);
 stopwatchButton.addEventListener("click", selectStopwatch);
-stopwatchBackButton.addEventListener("click", goBackFromStopwatch);
 timerButton.addEventListener("click", selectTimer);
-timerBackButton.addEventListener("click", goBackFromTimer);
 timerList.addEventListener("click", startCountingDown);
 // playTimer.addEventListener("click", startCountingDown);
 
@@ -168,25 +165,13 @@ function resetTimer() {
 //display our stopwatch screen and hide our home screen
 function selectStopwatch() {
   stopwatchView.style.display = "block";
-  homeScreen.style.display = "none";
-}
-
-//navigate back to our homescreen from our stopwatch view
-function goBackFromStopwatch() {
-  stopwatchView.style.display = "none";
-  homeScreen.style.display = "flex";
-  resetTimer();
+  timerView.style.display = "none";
 }
 
 //display our timer screen and hide our home homeScreen
 function selectTimer() {
   timerView.style.display = "block";
-  homeScreen.style.display = "none";
-}
-
-function goBackFromTimer() {
-  timerView.style.display = "none";
-  homeScreen.style.display = "flex";
+  stopwatchView.style.display = "none";
 }
 
 function openModal(modal) {
@@ -230,21 +215,32 @@ function addNewTimers() {
     timers = JSON.parse(localStorage.getItem("timers"));
   }
 
-  timers.push(timer);
-  localStorage.setItem("timers", JSON.stringify(timers));
-  newTimerDisplay = document.createElement("li");
-  timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-  timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-  timerHours = timer.countHours.toString().padStart(2, "0");
-  newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
-  newTimerDisplay.innerHTML = `<div class="timer-container">
+  let timerUniqueValue = true;
+
+  timers.forEach(function (timer) {
+    if (timer.title == titleInput.value) {
+      alert("Please make each timer have a unique title.");
+      timerUniqueValue = false;
+    }
+  });
+
+  if (timerUniqueValue == true) {
+    timers.push(timer);
+    localStorage.setItem("timers", JSON.stringify(timers));
+    newTimerDisplay = document.createElement("li");
+    timerSeconds = timer.countSeconds.toString().padStart(2, "0");
+    timerMinutes = timer.countMinutes.toString().padStart(2, "0");
+    timerHours = timer.countHours.toString().padStart(2, "0");
+    newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
+    newTimerDisplay.innerHTML = `<div class="timer-container">
     <h1>${timer.title}</h1>
    <h1 class="timer-display">${newTime}</h1>
    <button data-modal-target="#modal">Edit</button>
    <button data-play-button>Play</button>
  </div>`;
 
-  timerList.appendChild(newTimerDisplay);
+    timerList.appendChild(newTimerDisplay);
+  }
 }
 
 function getTimers() {
@@ -252,6 +248,14 @@ function getTimers() {
 
   if (localStorage.getItem("timers") === null) {
     timers = [];
+    let originalTimer = {
+      title: "Timer1",
+      countHours: 0,
+      countMinutes: 5,
+      countSeconds: 0,
+    };
+    timers.push(originalTimer);
+    localStorage.setItem("timers", JSON.stringify(timers));
   } else {
     timers = JSON.parse(localStorage.getItem("timers"));
   }
