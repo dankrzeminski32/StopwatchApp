@@ -16,17 +16,11 @@
     <div id="timerView">
       <div id="go-back">
         <button class="back-button" id="timer-back-button">Back</button>
+        <button id="add-new-timer-btn" data-modal-target="#modal">
+          Add New Timer
+        </button>
       </div>
-      <ul data-timer-list id="timer-list">
-        <li>
-          <div class="timer-container">
-            <button data-modal-target="#modal">Add New Timer</button>
-            <h1 class="timer-display"></h1>
-            <button data-modal-target="#modal">Edit</button>
-            <button data-play-button>Play</button>
-          </div>
-        </li>
-      </ul>
+      <ul data-timer-list id="timer-list"></ul>
       <div class="modal" id="modal">
         <div class="modal-header">
           <div class="title">Edit Timer</div>
