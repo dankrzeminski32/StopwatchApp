@@ -1,6 +1,4 @@
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-
-/* Document
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;600&family=Lobster+Two:ital,wght@1,700&family=Staatliches&display=swap"); /* Document
    ========================================================================== */
 
 /**
@@ -360,6 +358,7 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: #bfbfbf;
+  font-family: "Lexend Deca", sans-serif;
   overflow: hidden;
 }
 
@@ -382,6 +381,8 @@ body h1 {
   padding: 1rem;
   background-color: darkgrey;
   color: black;
+  font-family: "Lobster Two", cursive;
+  font-weight: 600;
 }
 
 #stopwatch-button:hover {
@@ -394,6 +395,8 @@ body h1 {
   font-size: 2rem;
   padding: 1rem;
   background-color: darkgrey;
+  font-family: "Lobster Two", cursive;
+  font-weight: 600;
 }
 
 #timer-button:hover {
@@ -422,8 +425,9 @@ body h1 {
 .start {
   width: 50%;
   background-color: green;
-  font-size: 10rem;
+  font-size: 8rem;
   margin-right: 1rem;
+  font-family: "Staatliches", cursive;
 }
 
 .start::after {
@@ -439,6 +443,7 @@ body h1 {
   background-color: red;
   font-size: 10rem;
   margin-right: 1rem;
+  font-family: "Staatliches", cursive;
 }
 
 .stop::after {
@@ -453,8 +458,9 @@ body h1 {
   width: 50%;
   background-color: black;
   color: white;
-  font-size: 10rem;
+  font-size: 8rem;
   margin-left: 1rem;
+  font-family: "Staatliches", cursive;
 }
 
 .reset:hover {
@@ -472,10 +478,68 @@ body h1 {
 
 .timer-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  min-height: 25vh;
   width: 50%;
+}
+.edit-button {
+  padding: 1rem;
+  font-family: "Staatliches", cursive;
+  font-size: 1.5rem;
+  background-color: dodgerblue;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.play-button {
+  padding: 1rem;
+  font-family: "Staatliches", cursive;
+  font-size: 1.5rem;
+  background-color: lightgreen;
+}
+
+.play-button::after {
+  content: "Play";
+}
+
+.play-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.stopTimer {
+  padding: 1rem;
+  font-family: "Staatliches", cursive;
+  font-size: 1.5rem;
+  background-color: red;
+}
+
+.stopTimer::after {
+  content: "Stop";
+}
+
+.stopTimer:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.reset-timer {
+  padding: 1rem;
+  font-family: "Staatliches", cursive;
+  font-size: 1.5rem;
+  background-color: rgb(175, 166, 166);
+}
+
+.reset-timer:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.timer-title {
+  font-family: "Lobster Two", cursive;
 }
 
 .timer-display {
@@ -552,4 +616,15 @@ body h1 {
   padding: 1rem;
   font-size: 2rem;
   margin: 1rem;
+  background-color: green;
+  font-family: "Staatliches", cursive;
+}
+
+#add-new-timer-btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.timer-item {
+  padding: 1rem 0;
 }

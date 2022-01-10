@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="styles.css" />
     <title>Stopwatch App</title>
   </head>
@@ -14,9 +18,8 @@
     </div>
     <div id="timerView">
       <div id="go-back">
-        <button class="back-button" id="timer-back-button">Back</button>
         <button id="add-new-timer-btn" data-modal-target="#modal">
-          Add New Timer
+          Add New Timer <i class="fa fa-plus"></i>
         </button>
       </div>
       <ul data-timer-list id="timer-list"></ul>

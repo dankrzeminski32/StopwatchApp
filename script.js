@@ -31,13 +31,15 @@ var stopWatch = {
 var interval = null;
 
 localStorage.clear();
-getTimers();
 //Event Listeners
 startStopButton.addEventListener("click", startStop);
-resetButton.addEventListener("click", resetTimer);
+resetButton.addEventListener("click", resetStopwatch);
 stopwatchButton.addEventListener("click", selectStopwatch);
 timerButton.addEventListener("click", selectTimer);
 timerList.addEventListener("click", startCountingDown);
+//timerList.addEventListener("click", stopCountingDown);
+timerList.addEventListener("click", resetTimer);
+document.addEventListener("DOMContentLoaded", getTimers);
 // playTimer.addEventListener("click", startCountingDown);
 
 overlay.addEventListener("click", () => {
@@ -87,16 +89,16 @@ function startStop() {
   if (startStopButton.classList.contains("start")) {
     startStopButton.classList.remove("start");
     startStopButton.classList.add("stop");
-    startTimer();
+    startStopwatch();
   } else {
     startStopButton.classList.remove("stop");
     startStopButton.classList.add("start");
-    stopTimer();
+    stopStopwatch();
   }
 }
 
 // run this function every ms to update the clock for the stopwatch
-function startTimer() {
+function startStopwatch() {
   interval = setInterval(function () {
     if (stopWatch.countHours > 0) {
       //add hours to the display only if we have to
@@ -142,13 +144,13 @@ function startTimer() {
   }, 1);
 }
 
-//Stop running the startTimer function every ms
-function stopTimer() {
+//Stop running the startStopwatch function every ms
+function stopStopwatch() {
   clearInterval(interval);
 }
 
 //reset our stopwatch values to 0, and update our display
-function resetTimer() {
+function resetStopwatch() {
   stopWatch.countHours = 0;
   stopWatch.countMilSeconds = 0;
   stopWatch.countMinutes = 0;
@@ -156,7 +158,7 @@ function resetTimer() {
   milliseconds = stopWatch.countMilSeconds.toString().padStart(2, "0");
   seconds = stopWatch.countSeconds.toString().padStart(2, "0");
   minutes = stopWatch.countMinutes.toString().padStart(2, "0");
-  stopTimer();
+  stopStopwatch();
   startStopButton.classList.remove("stop");
   startStopButton.classList.add("start");
   timeDisplay.innerHTML = minutes + ":" + seconds + "." + milliseconds;
@@ -196,6 +198,11 @@ function closeModal(modal) {
 
 function addNewTimers() {
   let timer = {
+    intervalID: 0,
+    paused: true,
+    originalHours: 0,
+    originalMinutes: 0,
+    originalSeconds: 0,
     title: "",
     countHours: 0,
     countMinutes: 0,
@@ -205,9 +212,12 @@ function addNewTimers() {
   timer.countHours = Math.abs(inputHours.value);
   timer.countMinutes = Math.abs(inputMinutes.value);
   timer.countSeconds = Math.abs(inputSeconds.value);
+  timer.originalHours = Math.abs(inputHours.value);
+  timer.originalMinutes = Math.abs(inputMinutes.value);
+  timer.originalSeconds = Math.abs(inputSeconds.value);
   timer.title = titleInput.value;
 
-  let timers;
+  var timers;
 
   if (localStorage.getItem("timers") === null) {
     timers = [];
@@ -232,13 +242,15 @@ function addNewTimers() {
     timerMinutes = timer.countMinutes.toString().padStart(2, "0");
     timerHours = timer.countHours.toString().padStart(2, "0");
     newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
-    newTimerDisplay.innerHTML = `<div class="timer-container">
-    <h1>${timer.title}</h1>
+    newTimerDisplay.innerHTML = `
+    <h1 class="timer-title">${timer.title}</h1>
+    <div class="timer-container">
    <h1 class="timer-display">${newTime}</h1>
-   <button data-modal-target="#modal">Edit</button>
-   <button data-play-button>Play</button>
+   <button class="edit-button" data-modal-target="#modal">Edit</button>
+   <button class="play-button" data-play-button></button>
+   <button class="reset-timer" data-reset-button>Reset</button>
  </div>`;
-
+    newTimerDisplay.classList.add("timer-item");
     timerList.appendChild(newTimerDisplay);
   }
 }
@@ -249,6 +261,11 @@ function getTimers() {
   if (localStorage.getItem("timers") === null) {
     timers = [];
     let originalTimer = {
+      intervalID: 0,
+      paused: true,
+      originalHours: 0,
+      originalMinutes: 5,
+      originalSeconds: 0,
       title: "Timer1",
       countHours: 0,
       countMinutes: 5,
@@ -266,46 +283,33 @@ function getTimers() {
     timerMinutes = timer.countMinutes.toString().padStart(2, "0");
     timerHours = timer.countHours.toString().padStart(2, "0");
     newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
-    newTimerDisplay.innerHTML = `<div class="timer-container">
-      <h1>${timer.title}</h1>
+    newTimerDisplay.innerHTML = `
+    <h1 class="timer-title">${timer.title}</h1>
+    <div class="timer-container">
      <h1 class="timer-display">${newTime}</h1>
-     <button data-modal-target="#modal">Edit</button>
-     <button data-play-button>Play</button>
+     <button class="edit-button" data-modal-target="#modal">Edit</button>
+     <button class="play-button" data-play-button></button>
+     <button class="reset-timer" data-reset-button>Reset</button>
    </div>`;
+
+    newTimerDisplay.classList.add("timer-item");
 
     timerList.appendChild(newTimerDisplay);
   });
 }
 
-// function addNewTimers() {
-//   timer.countHours = Math.abs(inputHours.value);
-//   timer.countMinutes = Math.abs(inputMinutes.value);
-//   timer.countSeconds = Math.abs(inputSeconds.value);
-//   timerSeconds = timer.countSeconds.toString().padStart(2, "0");
-//   timerMinutes = timer.countMinutes.toString().padStart(2, "0");
-//   timerHours = timer.countHours.toString().padStart(2, "0");
-//   newTimerDisplay = document.createElement("li");
-//   newTime = timerHours + ":" + timerMinutes + ":" + timerSeconds;
-//   newTimerDisplay.innerHTML = `
-//   <div class="timer-container">
-//     <button data-modal-target="#modal">Add New Timer</button>
-//     <h1 class="timer-display">${newTime}</h1>
-//     <button data-modal-target="#modal">Edit</button>
-//     <button data-play-button>Play</button>
-//   </div>`;
-//   timerList.appendChild(newTimerDisplay);
-//   inputSeconds.value = 0;
-//   inputMinutes.value = 0;
-//   inputHours.value = 0;
-// }
-
 function startCountingDown(event) {
-  if (event.target && event.target.matches("[data-play-button]")) {
-    relativeTimerTitle =
-      event.target.previousElementSibling.previousElementSibling
-        .previousElementSibling.innerText;
+  if (
+    event.target &&
+    event.target.matches("[data-play-button]") &&
+    event.target.classList.contains("play-button")
+  ) {
+    console.log("THIS IS RUNNING AGAININNNN");
 
-    timers = JSON.parse(localStorage.getItem("timers"));
+    let relativeTimerTitle =
+      event.target.parentElement.previousElementSibling.innerText;
+
+    let timers = JSON.parse(localStorage.getItem("timers"));
 
     let relativeTimerIndex;
 
@@ -320,28 +324,41 @@ function startCountingDown(event) {
 
     let thisTimer = timers[relativeTimerIndex];
     let timerDisplay;
-
-    console.log(event.target.previousElementSibling.previousElementSibling);
+    thisTimer.paused = false;
+    console.log("THIS IS RUNNING EVERYTIME");
+    localStorage.setItem("timers", JSON.stringify(timers));
     timerDisplay = event.target.previousElementSibling.previousElementSibling;
 
-    /*
-    let lis = document.getElementById("timer-list").getElementsByTagName("li");
-    for (let i = 0; i < lis.length; i++) {
-      if (lis[i].firstChild.childNodes[1].innerText == thisTimer.title) {
-        timerDisplay = lis[i].firstChild.childNodes[3];
-        console.log(timerDisplay);
-      } else {
-        continue;
-      }
-    }
-    */
+    event.target.classList.remove("play-button");
+    event.target.classList.add("stopTimer");
+    console.log(event.target);
 
-    var countDown = setInterval(() => {
-      console.log(thisTimer);
+    countDown = setInterval(() => {
+      let relativeTimerTitle =
+        event.target.parentElement.previousElementSibling.innerText;
+
+      let timers = JSON.parse(localStorage.getItem("timers"));
+
+      let relativeTimerIndex;
+
+      for (let i = 0; i < timers.length; i++) {
+        if (timers[i].title == relativeTimerTitle) {
+          relativeTimerIndex = i;
+          break;
+        } else {
+          continue;
+        }
+      }
+
+      let thisTimer = timers[relativeTimerIndex];
+      thisTimer.intervalID = countDown;
+      console.log(thisTimer, countDown);
       if (
         thisTimer.countHours + thisTimer.countMinutes + thisTimer.countSeconds >
-        0
+          0 &&
+        thisTimer.paused == false
       ) {
+        console.log("CONDITIONS ARE TRUE", thisTimer);
         if (thisTimer.countSeconds > 0) {
           thisTimer.countSeconds -= 1;
           timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
@@ -368,8 +385,73 @@ function startCountingDown(event) {
         }
       } else {
         clearInterval(countDown);
-        return;
       }
+      localStorage.setItem("timers", JSON.stringify(timers));
     }, 5000);
+  } else if (event.target.classList.contains("stopTimer")) {
+    console.log("STOP");
+    let relativeTimerTitle =
+      event.target.parentElement.previousElementSibling.innerText;
+    console.log(relativeTimerTitle);
+    let timers = JSON.parse(localStorage.getItem("timers"));
+
+    let relativeTimerIndex;
+
+    for (let i = 0; i < timers.length; i++) {
+      if (timers[i].title == relativeTimerTitle) {
+        relativeTimerIndex = i;
+        break;
+      } else {
+        continue;
+      }
+    }
+    console.log(relativeTimerIndex);
+    let thisTimer = timers[relativeTimerIndex];
+    thisTimer.paused = true;
+    localStorage.setItem("timers", JSON.stringify(timers));
+    event.target.classList.remove("stopTimer");
+    event.target.classList.add("play-button");
+  }
+}
+
+function resetTimer(event) {
+  if (event.target && event.target.matches("[data-reset-button]")) {
+    console.log("THIS SHOULD NOT BE RUNNNING");
+    relativeTimerTitle =
+      event.target.parentElement.previousElementSibling.innerText;
+
+    var timers = JSON.parse(localStorage.getItem("timers"));
+
+    let relativeTimerIndex;
+
+    for (let i = 0; i < timers.length; i++) {
+      if (timers[i].title == relativeTimerTitle) {
+        relativeTimerIndex = i;
+        break;
+      } else {
+        continue;
+      }
+    }
+
+    let timerDisplay;
+    let thisTimer = timers[relativeTimerIndex];
+
+    thisTimer.countMinutes = thisTimer.originalMinutes;
+    thisTimer.countSeconds = thisTimer.originalSeconds;
+    thisTimer.countHours = thisTimer.originalHours;
+
+    localStorage.setItem("timers", JSON.stringify(timers));
+
+    timerDisplay =
+      event.target.previousElementSibling.previousElementSibling
+        .previousElementSibling;
+
+    timerSeconds = thisTimer.countSeconds.toString().padStart(2, "0");
+    timerMinutes = thisTimer.countMinutes.toString().padStart(2, "0");
+    timerHours = thisTimer.countHours.toString().padStart(2, "0");
+    timerDisplay.innerText =
+      timerHours + ":" + timerMinutes + ":" + timerSeconds;
+  } else {
+    return;
   }
 }
