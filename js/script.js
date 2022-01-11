@@ -12,13 +12,11 @@ const stopwatchView = document.querySelector("#stopwatch");
 const stopwatchBackButton = document.querySelector("#stopwatch-back-button");
 //var timerDisplay = document.querySelector(".timer-display");
 const timerBackButton = document.querySelector("#timer-back-button");
-const openModalButtons = document.querySelectorAll("[data-modal-target]");
-const closeModalButtons = document.querySelectorAll("[data-close-button]");
 const overlay = document.getElementById("overlay");
-const inputHours = document.querySelector("[data-hours]");
-const inputMinutes = document.querySelector("[data-minutes]");
-const inputSeconds = document.querySelector("[data-seconds]");
-const inputTitle = document.querySelector("[data-title]");
+// const inputHours = document.querySelector("[data-hours]");
+// const inputMinutes = document.querySelector("[data-minutes]");
+// const inputSeconds = document.querySelector("[data-seconds]");
+// const inputTitle = document.querySelector("[data-title]");
 const addNewTimer = document.querySelectorAll("[data-add-new-timer]");
 //const playTimer = document.querySelector("[data-play-button]");
 
@@ -38,31 +36,9 @@ resetButton.addEventListener("click", resetStopwatch);
 stopwatchButton.addEventListener("click", selectStopwatch);
 timerButton.addEventListener("click", selectTimer);
 
-overlay.addEventListener("click", () => {
-  const modals = document.querySelectorAll(".modal.active");
-  modals.forEach((modal) => {
-    closeModal(modal);
-  });
-});
-
-openModalButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = document.querySelector(button.dataset.modalTarget);
-    openModal(modal);
-  });
-});
-
-closeModalButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = button.closest(".modal");
-    closeModal(modal);
-  });
-});
-
 addNewTimer.forEach((newTimer) => {
   newTimer.addEventListener("click", () => {
     const modal = newTimer.closest(".modal");
-    addNewTimers();
     closeModal(modal);
   });
 });
@@ -173,24 +149,4 @@ function selectStopwatch() {
 function selectTimer() {
   timerView.style.display = "block";
   stopwatchView.style.display = "none";
-}
-
-function openModal(modal) {
-  if (modal == null) return;
-  modal.classList.add("active");
-  overlay.classList.add("active");
-  inputSeconds.value = 0;
-  inputMinutes.value = 0;
-  inputHours.value = 0;
-  inputTitle.value = "";
-}
-
-function closeModal(modal) {
-  if (modal == null) return;
-  modal.classList.remove("active");
-  overlay.classList.remove("active");
-  inputSeconds.value = 0;
-  inputMinutes.value = 0;
-  inputHours.value = 0;
-  inputTitle.value = "";
 }

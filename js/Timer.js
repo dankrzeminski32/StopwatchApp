@@ -7,6 +7,10 @@ export default class Timer {
       seconds: root.querySelector(".timer__part--seconds"),
       control: root.querySelector(".timer__btn--control"),
       reset: root.querySelector(".timer__btn--reset"),
+      modal: root.querySelector(".modal"),
+      modalClose: root.querySelector(".close-button"),
+      overlay: root.querySelector("#overlay"),
+      resetConfirm: root.querySelector("#addNewTimer"),
     };
 
     this.interval = null;
@@ -21,13 +25,7 @@ export default class Timer {
     });
 
     this.el.reset.addEventListener("click", () => {
-      const inputMinutes = prompt("Enter number of minutes:");
-
-      if (inputMinutes < 60) {
-        this.stop();
-        this.remainingSeconds = inputMinutes * 60;
-        this.updateInterfaceTime();
-      }
+      this.openModal();
     });
   }
 
@@ -74,6 +72,29 @@ export default class Timer {
     this.updateInterfaceControls();
   }
 
+  openModal() {
+    if (this.el.modal == null) return;
+    this.el.modal.classList.add("active");
+    this.el.overlay.classList.add("active");
+    this.el.resetConfirm.addEventListener("click", () => {
+      inputMinutes = this.el.modal.children[2].innerText;
+      if (inputMinutes < 60) {
+        this.stop();
+        this.remainingSeconds = inputMinutes * 60;
+        this.updateInterfaceTime();
+      }
+    });
+    this.el.modalClose.addEventListener("click", () => {
+      this.closeModal();
+    });
+  }
+
+  closeModal() {
+    if (this.el.modal == null) return;
+    this.el.modal.classList.remove("active");
+    this.el.overlay.classList.remove("active");
+  }
+
   static getHTML() {
     return `
               <span class="timer__part timer__part--minutes">00</span>
@@ -85,6 +106,54 @@ export default class Timer {
               <button type="button" class="timer__btn timer__btn--reset">
                   <span class="material-icons">timer</span>
               </button>
+
+              <div class="modal" id="modal">
+              <div class="modal-header">
+                <div class="title">Edit Timer</div>
+                <button data-close-button class="close-button">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="addTimer">
+                  <div id="addTitle">
+                    <label for="titleInput">Timer Title: </label>
+                    <input id="titleInput" type="text" data-title />
+                  </div>
+                  <div id="addHours">
+                    <label for="hourInput">Hours</label>
+                    <input
+                      id="hourInput"
+                      type="number"
+                      data-hours
+                      placeholder="00"
+                      min="0"
+                    />
+                  </div>
+                  <div id="addMinutes">
+                    <label for="minuteInput">Minutes</label>
+                    <input
+                      id="minuteInput"
+                      type="number"
+                      data-minutes
+                      placeholder="00"
+                      min="0"
+                    />
+                  </div>
+                  <div id="addSeconds">
+                    <label for="secondInput">Seconds</label>
+                    <input
+                      id="secondInput"
+                      type="number"
+                      data-seconds
+                      placeholder="00"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <button data-add-new-timer id="addNewTimer">Add Timer</button>
+              </div>
+            </div>
+            <div id="overlay"></div>
+          </div>
           `;
   }
 }
