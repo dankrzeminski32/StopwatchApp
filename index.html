@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
@@ -17,12 +21,20 @@
       <button id="timer-button">Timer</button>
     </div>
     <div id="timerView">
-      <div id="go-back">
-        <button id="add-new-timer-btn" data-modal-target="#modal">
-          Add New Timer <i class="fa fa-plus"></i>
+      <div class="timer">
+        <!-- <span class="timer__part" timer__part--minutes>00</span>
+        <span class="timer__part" timer__part>:</span>
+        <span class="timer__part" timer__part--seconds>00</span>
+        <button
+          type="button"
+          class="timer__btn timer__btn--control timer--btn--start"
+        >
+          <span class="material--icons">play_arrow</span>
         </button>
+        <button type="button" class="timer__btn timer--btn--reset">
+          <span class="material--icons">timer</span>
+        </button> -->
       </div>
-      <ul data-timer-list id="timer-list"></ul>
       <div class="modal" id="modal">
         <div class="modal-header">
           <div class="title">Edit Timer</div>
@@ -81,7 +93,7 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js" type="module"></script>
   </body>
 </html>
 

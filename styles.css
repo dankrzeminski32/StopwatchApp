@@ -489,43 +489,6 @@ body h1 {
   background-color: dodgerblue;
 }
 
-.edit-button:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
-.play-button {
-  padding: 1rem;
-  font-family: "Staatliches", cursive;
-  font-size: 1.5rem;
-  background-color: lightgreen;
-}
-
-.play-button::after {
-  content: "Play";
-}
-
-.play-button:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
-.stopTimer {
-  padding: 1rem;
-  font-family: "Staatliches", cursive;
-  font-size: 1.5rem;
-  background-color: red;
-}
-
-.stopTimer::after {
-  content: "Stop";
-}
-
-.stopTimer:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
 .reset-timer {
   padding: 1rem;
   font-family: "Staatliches", cursive;
@@ -612,14 +575,6 @@ body h1 {
   padding: 0.2rem;
 }
 
-#add-new-timer-btn {
-  padding: 1rem;
-  font-size: 2rem;
-  margin: 1rem;
-  background-color: green;
-  font-family: "Staatliches", cursive;
-}
-
 #add-new-timer-btn:hover {
   cursor: pointer;
   opacity: 0.5;
@@ -627,4 +582,36 @@ body h1 {
 
 .timer-item {
   padding: 1rem 0;
+}
+
+.timer {
+  font-family: sans-serif;
+  display: inline-block;
+  padding: 24px 32px;
+  border-radius: 30px;
+  background: white;
+}
+
+.timer__part {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.timer__btn {
+  width: 50px;
+  height: 50px;
+  margin-left: 16px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  background: dodgerblue;
+  cursor: pointer;
+}
+
+.timer__btn--start {
+  background: #00b84c;
+}
+
+.timer__btn--stop {
+  background: #ff0256;
 }
