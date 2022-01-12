@@ -33,12 +33,23 @@ export default class Timer {
   }
 
   updateInterfaceTime() {
-    console.log(this.remainingSeconds);
-    const minutes = Math.floor(this.remainingSeconds / 60);
-    const seconds = this.remainingSeconds % 60;
+    var h = Math.floor(this.remainingSeconds / 3600);
+    var m = Math.floor((this.remainingSeconds % 3600) / 60);
+    var s = Math.floor((this.remainingSeconds % 3600) % 60);
 
-    this.el.minutesDisplay.textContent = minutes.toString().padStart(2, "0");
-    this.el.secondsDisplay.textContent = seconds.toString().padStart(2, "0");
+    console.log(this.remainingSeconds);
+    // const minutes = Math.floor(this.remainingSeconds / 60);
+    //const seconds = this.remainingSeconds % 60;
+    if (h > 0) {
+      const pDisplay = document.createElement("span");
+      const pDisplayText = document.createTextNode(h);
+      pDisplay.appendChild(pDisplayText);
+      var targetTimer = document.querySelector(".timer");
+      targetTimer.prepend(pDisplay);
+    } else {
+      this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+      this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+    }
   }
 
   updateInterfaceControls() {
@@ -80,9 +91,9 @@ export default class Timer {
     if (this.el.modal == null) return;
     this.el.modal.classList.add("active");
     this.el.overlay.classList.add("active");
-    this.el.seconds.defaultValue = 0;
-    this.el.minutes.defaultValue = 0;
-    this.el.hours.defaultValue = 0;
+    //this.el.seconds.defaultValue = 0;
+    //this.el.minutes.defaultValue = 0;
+    //this.el.hours.defaultValue = 0;
 
     this.el.resetConfirm.addEventListener("click", () => {
       //grab the hours mins and seconds input
@@ -91,11 +102,9 @@ export default class Timer {
 
       this.stop();
       console.log(this.el.hours);
-      var inputHours = parseInt(this.el.hours.value) * 3600;
-      var inputMinutes = parseInt(this.el.minutes.value) * 60;
-      console.log(typeof inputMinutes);
-
-      var inputSeconds = parseInt(this.el.seconds.value);
+      var inputHours = parseInt(this.el.hours.value) * 3600 || 0;
+      var inputMinutes = parseInt(this.el.minutes.value) * 60 || 0;
+      var inputSeconds = parseInt(this.el.seconds.value) || 0;
 
       console.log(typeof inputSeconds);
       console.log(inputMinutes);

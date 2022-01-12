@@ -667,3 +667,9 @@ input[type="number"] {
 #addSeconds {
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  html {
+    font-size: 10rem;
+  }
+}
