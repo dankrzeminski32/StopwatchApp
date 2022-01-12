@@ -77,7 +77,6 @@ export default class Timer {
     this.el.modal.classList.add("active");
     this.el.overlay.classList.add("active");
     this.el.resetConfirm.addEventListener("click", () => {
-      inputMinutes = this.el.modal.children[2].innerText;
       if (inputMinutes < 60) {
         this.stop();
         this.remainingSeconds = inputMinutes * 60;
@@ -115,13 +114,11 @@ export default class Timer {
 
                 <div class="modal-body">
                 <div id="addTitle">
-                <label for="titleInput">Timer Title: </label>
-                <input id="titleInput" type="text" data-title />
+
               </div>
                 <div class="addTimer">
 
                   <div id="addHours">
-                    <label for="hourInput">Hrs</label>
                     <input
                       id="hourInput"
                       type="number"
@@ -129,9 +126,10 @@ export default class Timer {
                       placeholder="00"
                       min="0"
                     />
+                    <p>HRS</p>
                   </div>
+                  :
                   <div id="addMinutes">
-                    <label for="minuteInput">Mins</label>
                     <input
                       id="minuteInput"
                       type="number"
@@ -139,9 +137,10 @@ export default class Timer {
                       placeholder="00"
                       min="0"
                     />
+                    <p>MINS</p>
                   </div>
+                  :
                   <div id="addSeconds">
-                    <label for="secondInput">Secs</label>
                     <input
                       id="secondInput"
                       type="number"
@@ -149,6 +148,7 @@ export default class Timer {
                       placeholder="00"
                       min="0"
                     />
+                    <p>SECS</p>
                   </div>
                 </div>
                 <button data-add-new-timer id="addNewTimer">Add Timer</button>

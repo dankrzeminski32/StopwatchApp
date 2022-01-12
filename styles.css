@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&family=Outfit:wght@100&family=Roboto:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;600&family=Lobster+Two:ital,wght@1,700&family=Staatliches&display=swap"); /* Document
    ========================================================================== */
 
@@ -379,31 +380,29 @@ body h1 {
 #stopwatch-button {
   font-size: 2rem;
   padding: 1rem;
-  background-color: #65c6ee;
-  color: black;
-  font-family: "Lobster Two", cursive;
-  font-weight: 600;
+  background-color: #1b2627;
+  color: #fbfbfb;
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: 700;
   border-radius: 10px;
 }
 
 #stopwatch-button:hover {
   cursor: pointer;
   opacity: 0.5;
-  background-color: lightgrey;
 }
 
 #timer-button {
   font-size: 2rem;
   padding: 1rem;
-  background-color: #65c6ee;
-  color: black;
-  font-family: "Lobster Two", cursive;
-  font-weight: 600;
+  background-color: #1b2627;
+  color: #fbfbfb;
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: 700;
   border-radius: 10px;
 }
 
 #timer-button:hover {
-  background-color: lightgrey;
   opacity: 0.5;
   cursor: pointer;
 }
@@ -537,7 +536,8 @@ body h1 {
   align-items: center;
   border-bottom: 1px solid black;
   background-color: #afc6cc;
-  font-family: "Staatliches", cursive;
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: 700;
   font-size: 1.6rem;
   color: black;
 }
@@ -553,7 +553,8 @@ body h1 {
 
 .modal-body {
   padding: 10px 15px;
-  font-family: "Staatliches", cursive;
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: 400;
   font-size: 1.5rem;
 }
 
@@ -565,6 +566,8 @@ body h1 {
   background-color: #65c6ee;
   padding: 1rem;
   border-radius: 1rem;
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: 700;
 }
 
 #addNewTimer:hover {
@@ -592,10 +595,6 @@ body h1 {
 #overlay.active {
   opacity: 1;
   pointer-events: all;
-}
-
-#timer-back-button {
-  padding: 0.2rem;
 }
 
 #add-new-timer-btn:hover {
@@ -657,4 +656,14 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+#addHours {
+  text-align: center;
+}
+#addMinutes {
+  text-align: center;
+}
+#addSeconds {
+  text-align: center;
 }
