@@ -36,13 +36,6 @@ resetButton.addEventListener("click", resetStopwatch);
 stopwatchButton.addEventListener("click", selectStopwatch);
 timerButton.addEventListener("click", selectTimer);
 
-addNewTimer.forEach((newTimer) => {
-  newTimer.addEventListener("click", () => {
-    const modal = newTimer.closest(".modal");
-    closeModal(modal);
-  });
-});
-
 //Functions
 //start our stopwatch display as 00:00.00
 let milliseconds;

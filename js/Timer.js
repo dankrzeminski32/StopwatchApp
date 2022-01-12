@@ -3,8 +3,11 @@ export default class Timer {
     root.innerHTML = Timer.getHTML();
 
     this.el = {
+      hours: root.querySelector(".timer__part--hours"),
       minutes: root.querySelector(".timer__part--minutes"),
       seconds: root.querySelector(".timer__part--seconds"),
+      secondsDisplay: root.querySelector(".timer__part--secondsDisplay"),
+      minutesDisplay: root.querySelector(".timer__part--minutesDisplay"),
       control: root.querySelector(".timer__btn--control"),
       reset: root.querySelector(".timer__btn--reset"),
       modal: root.querySelector(".modal"),
@@ -30,11 +33,12 @@ export default class Timer {
   }
 
   updateInterfaceTime() {
+    console.log(this.remainingSeconds);
     const minutes = Math.floor(this.remainingSeconds / 60);
     const seconds = this.remainingSeconds % 60;
 
-    this.el.minutes.textContent = minutes.toString().padStart(2, "0");
-    this.el.seconds.textContent = seconds.toString().padStart(2, "0");
+    this.el.minutesDisplay.textContent = minutes.toString().padStart(2, "0");
+    this.el.secondsDisplay.textContent = seconds.toString().padStart(2, "0");
   }
 
   updateInterfaceControls() {
@@ -76,12 +80,31 @@ export default class Timer {
     if (this.el.modal == null) return;
     this.el.modal.classList.add("active");
     this.el.overlay.classList.add("active");
+    this.el.seconds.defaultValue = 0;
+    this.el.minutes.defaultValue = 0;
+    this.el.hours.defaultValue = 0;
+
     this.el.resetConfirm.addEventListener("click", () => {
-      if (inputMinutes < 60) {
-        this.stop();
-        this.remainingSeconds = inputMinutes * 60;
-        this.updateInterfaceTime();
-      }
+      //grab the hours mins and seconds input
+      // Convert into minutes and seconds...
+      //Update interface time
+
+      this.stop();
+      console.log(this.el.hours);
+      var inputHours = parseInt(this.el.hours.value) * 3600;
+      var inputMinutes = parseInt(this.el.minutes.value) * 60;
+      console.log(typeof inputMinutes);
+
+      var inputSeconds = parseInt(this.el.seconds.value);
+
+      console.log(typeof inputSeconds);
+      console.log(inputMinutes);
+      console.log(inputHours);
+      this.remainingSeconds = inputHours + inputMinutes + inputSeconds;
+
+      console.log(this.remainingSeconds);
+      this.updateInterfaceTime();
+      this.closeModal();
     });
     this.el.modalClose.addEventListener("click", () => {
       this.closeModal();
@@ -96,9 +119,9 @@ export default class Timer {
 
   static getHTML() {
     return `
-              <span class="timer__part timer__part--minutes">00</span>
+              <span class="timer__part timer__part--minutesDisplay">00</span>
               <span class="timer__part">:</span>
-              <span class="timer__part timer__part--seconds">00</span>
+              <span class="timer__part timer__part--secondsDisplay">00</span>
               <button type="button" class="timer__btn timer__btn--control timer__btn--start">
                   <span class="material-icons">play_arrow</span>
               </button>
@@ -120,10 +143,11 @@ export default class Timer {
 
                   <div id="addHours">
                     <input
+                      class="timer__part--hours"
                       id="hourInput"
                       type="number"
                       data-hours
-                      placeholder="00"
+                      placeholder="00
                       min="0"
                     />
                     <p>HRS</p>
@@ -131,6 +155,7 @@ export default class Timer {
                   :
                   <div id="addMinutes">
                     <input
+                      class="timer__part--minutes"
                       id="minuteInput"
                       type="number"
                       data-minutes
@@ -142,6 +167,7 @@ export default class Timer {
                   :
                   <div id="addSeconds">
                     <input
+                      class="timer__part--seconds"
                       id="secondInput"
                       type="number"
                       data-seconds
@@ -151,7 +177,7 @@ export default class Timer {
                     <p>SECS</p>
                   </div>
                 </div>
-                <button data-add-new-timer id="addNewTimer">Add Timer</button>
+                <button data-add-new-timer id="addNewTimer">Update Timer</button>
               </div>
             </div>
             <div id="overlay"></div>
