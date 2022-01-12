@@ -111,15 +111,17 @@ export default class Timer {
               <div class="modal-header">
                 <div class="title">Edit Timer</div>
                 <button data-close-button class="close-button">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                <div id="addTitle">
+                <label for="titleInput">Timer Title: </label>
+                <input id="titleInput" type="text" data-title />
               </div>
-              <div class="modal-body">
                 <div class="addTimer">
-                  <div id="addTitle">
-                    <label for="titleInput">Timer Title: </label>
-                    <input id="titleInput" type="text" data-title />
-                  </div>
+
                   <div id="addHours">
-                    <label for="hourInput">Hours</label>
+                    <label for="hourInput">Hrs</label>
                     <input
                       id="hourInput"
                       type="number"
@@ -129,7 +131,7 @@ export default class Timer {
                     />
                   </div>
                   <div id="addMinutes">
-                    <label for="minuteInput">Minutes</label>
+                    <label for="minuteInput">Mins</label>
                     <input
                       id="minuteInput"
                       type="number"
@@ -139,7 +141,7 @@ export default class Timer {
                     />
                   </div>
                   <div id="addSeconds">
-                    <label for="secondInput">Seconds</label>
+                    <label for="secondInput">Secs</label>
                     <input
                       id="secondInput"
                       type="number"

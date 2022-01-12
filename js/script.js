@@ -147,6 +147,6 @@ function selectStopwatch() {
 
 //display our timer screen and hide our home homeScreen
 function selectTimer() {
-  timerView.style.display = "block";
+  timerView.style.display = "flex";
   stopwatchView.style.display = "none";
 }

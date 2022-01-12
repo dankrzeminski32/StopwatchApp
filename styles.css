@@ -357,7 +357,7 @@ template {
 body {
   height: 100vh;
   width: 100vw;
-  background-color: #bfbfbf;
+  background-color: #e5eced;
   font-family: "Lexend Deca", sans-serif;
   overflow: hidden;
 }
@@ -372,17 +372,18 @@ body h1 {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: black;
+  background-color: #afc6cc;
   padding: 3rem;
 }
 
 #stopwatch-button {
   font-size: 2rem;
   padding: 1rem;
-  background-color: darkgrey;
+  background-color: #65c6ee;
   color: black;
   font-family: "Lobster Two", cursive;
   font-weight: 600;
+  border-radius: 10px;
 }
 
 #stopwatch-button:hover {
@@ -394,9 +395,11 @@ body h1 {
 #timer-button {
   font-size: 2rem;
   padding: 1rem;
-  background-color: darkgrey;
+  background-color: #65c6ee;
+  color: black;
   font-family: "Lobster Two", cursive;
   font-weight: 600;
+  border-radius: 10px;
 }
 
 #timer-button:hover {
@@ -456,8 +459,8 @@ body h1 {
 
 .reset {
   width: 50%;
-  background-color: black;
-  color: white;
+  background-color: #afc6cc;
+  color: black;
   font-size: 8rem;
   margin-left: 1rem;
   font-family: "Staatliches", cursive;
@@ -528,11 +531,15 @@ body h1 {
 }
 
 .modal-header {
-  padding: 10px 15px;
+  padding: 1rem 1.3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
+  background-color: #afc6cc;
+  font-family: "Staatliches", cursive;
+  font-size: 1.6rem;
+  color: black;
 }
 
 .modal-header .close-button {
@@ -540,12 +547,28 @@ body h1 {
   border: none;
   outline: none;
   background: none;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: bold;
 }
 
 .modal-body {
   padding: 10px 15px;
+  font-family: "Staatliches", cursive;
+  font-size: 1.5rem;
+}
+
+.modal-body input {
+  width: 50%;
+}
+
+#addNewTimer {
+  background-color: #65c6ee;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+#addNewTimer:hover {
+  cursor: pointer;
 }
 
 .addTimer {
@@ -587,25 +610,24 @@ body h1 {
 .timer {
   font-family: sans-serif;
   display: inline-block;
-  padding: 24px 32px;
+  padding: 10rem 15rem;
   border-radius: 30px;
-  background: white;
+  background: #afc6cc;
 }
 
 .timer__part {
-  font-size: 36px;
+  font-size: 9rem;
   font-weight: bold;
 }
 
 .timer__btn {
-  width: 50px;
-  height: 50px;
   margin-left: 16px;
   border-radius: 50%;
   border: none;
   color: white;
-  background: dodgerblue;
+  background: #65c6ee;
   cursor: pointer;
+  padding: 1rem;
 }
 
 .timer__btn--start {
@@ -614,4 +636,25 @@ body h1 {
 
 .timer__btn--stop {
   background: #ff0256;
+}
+
+#timerView {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.material-icons {
+  font-size: 5rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
