@@ -619,6 +619,12 @@ body h1 {
   font-weight: bold;
 }
 
+.timerHoursDisplay {
+  font-size: 9rem;
+  font-weight: bold;
+  display: none;
+}
+
 .timer__btn {
   margin-left: 16px;
   border-radius: 50%;

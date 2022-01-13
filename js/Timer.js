@@ -3,9 +3,13 @@ export default class Timer {
     root.innerHTML = Timer.getHTML();
 
     this.el = {
+      useHours: 0,
+      useMinutes: 0,
+      useSeconds: 0,
       hours: root.querySelector(".timer__part--hours"),
       minutes: root.querySelector(".timer__part--minutes"),
       seconds: root.querySelector(".timer__part--seconds"),
+      hoursDisplay: root.querySelector(".timerHoursDisplay"),
       secondsDisplay: root.querySelector(".timer__part--secondsDisplay"),
       minutesDisplay: root.querySelector(".timer__part--minutesDisplay"),
       control: root.querySelector(".timer__btn--control"),
@@ -33,23 +37,59 @@ export default class Timer {
   }
 
   updateInterfaceTime() {
-    var h = Math.floor(this.remainingSeconds / 3600);
-    var m = Math.floor((this.remainingSeconds % 3600) / 60);
-    var s = Math.floor((this.remainingSeconds % 3600) % 60);
+    console.log("AMOUNT OF HOURS:", this.el.useHours);
+    var h = this.el.useHours;
+    var m = this.el.useMinutes;
+    var s = this.el.useSeconds;
 
-    console.log(this.remainingSeconds);
-    // const minutes = Math.floor(this.remainingSeconds / 60);
-    //const seconds = this.remainingSeconds % 60;
-    if (h > 0) {
-      const pDisplay = document.createElement("span");
-      const pDisplayText = document.createTextNode(h);
-      pDisplay.appendChild(pDisplayText);
-      var targetTimer = document.querySelector(".timer");
-      targetTimer.prepend(pDisplay);
-    } else {
-      this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
-      this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+    // const this.el.hoursDisplayText = document.createTextNode(
+    //   h.toString().padStart(2, "0") + ":"
+    // );
+    var targetTimer = document.querySelector(".timer");
+
+    if (this.el.useHours > 0) {
+      this.el.hoursDisplay.style.display = "inline-block";
+      if (this.el.useSeconds > 0) {
+        console.log("1");
+        this.el.useSeconds -= 1;
+        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+      } else if (this.el.useMinutes > 0) {
+        console.log("2");
+        this.el.useMinutes -= 1;
+        this.el.useSeconds += 59;
+        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+      } else if (this.el.useHours > 0) {
+        this.el.useHours -= 1;
+        this.el.useMinutes += 59;
+        this.el.useSeconds += 59;
+        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+      }
+    } else if (this.el.useMinutes + this.el.useSeconds > 0) {
+      this.el.hoursDisplay.style.display = "none";
+
+      if (this.el.useSeconds > 0) {
+        console.log("1");
+        this.el.useSeconds -= 1;
+        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+      } else if (this.el.useMinutes > 0) {
+        console.log("2");
+        this.el.useMinutes -= 1;
+        this.el.useSeconds += 59;
+        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+      }
     }
+    //console.log(targetTimer);
+    //this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
+    //this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
   }
 
   updateInterfaceControls() {
@@ -65,13 +105,13 @@ export default class Timer {
   }
 
   start() {
-    if (this.remainingSeconds === 0) return;
+    if (this.el.useMinutes + this.el.useSeconds + this.el.useHours === 0)
+      return;
 
     this.interval = setInterval(() => {
-      this.remainingSeconds--;
       this.updateInterfaceTime();
 
-      if (this.remainingSeconds === 0) {
+      if (this.el.useMinutes + this.el.useSeconds + this.el.useHours === 0) {
         this.stop();
       }
     }, 1000);
@@ -102,16 +142,14 @@ export default class Timer {
 
       this.stop();
       console.log(this.el.hours);
-      var inputHours = parseInt(this.el.hours.value) * 3600 || 0;
-      var inputMinutes = parseInt(this.el.minutes.value) * 60 || 0;
-      var inputSeconds = parseInt(this.el.seconds.value) || 0;
+      this.el.useHours = parseInt(this.el.hours.value) || 0;
+      this.el.useMinutes = parseInt(this.el.minutes.value) || 0;
+      this.el.useSeconds = parseInt(this.el.seconds.value) || 0;
 
-      console.log(typeof inputSeconds);
-      console.log(inputMinutes);
-      console.log(inputHours);
-      this.remainingSeconds = inputHours + inputMinutes + inputSeconds;
+      console.log(this.el.useHours);
+      console.log(this.el.useMinutes);
+      console.log(this.el.useSeconds);
 
-      console.log(this.remainingSeconds);
       this.updateInterfaceTime();
       this.closeModal();
     });
@@ -128,6 +166,7 @@ export default class Timer {
 
   static getHTML() {
     return `
+              <span class="timerHoursDisplay">00</span>
               <span class="timer__part timer__part--minutesDisplay">00</span>
               <span class="timer__part">:</span>
               <span class="timer__part timer__part--secondsDisplay">00</span>
