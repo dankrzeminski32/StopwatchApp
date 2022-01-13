@@ -572,6 +572,7 @@ body h1 {
 
 #addNewTimer:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
 
 .addTimer {
