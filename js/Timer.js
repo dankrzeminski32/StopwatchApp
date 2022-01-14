@@ -38,53 +38,70 @@ export default class Timer {
 
   updateInterfaceTime() {
     console.log("AMOUNT OF HOURS:", this.el.useHours);
-    var h = this.el.useHours;
-    var m = this.el.useMinutes;
-    var s = this.el.useSeconds;
-
+    console.log("AMOUNT OF Seconds:", this.el.useSeconds);
     // const this.el.hoursDisplayText = document.createTextNode(
     //   h.toString().padStart(2, "0") + ":"
     // );
     var targetTimer = document.querySelector(".timer");
 
     if (this.el.useHours > 0) {
-      this.el.hoursDisplay.style.display = "inline-block";
       if (this.el.useSeconds > 0) {
         console.log("1");
         this.el.useSeconds -= 1;
-        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
-        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
-        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+        this.el.hoursDisplay.textContent =
+          this.el.useHours.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
       } else if (this.el.useMinutes > 0) {
         console.log("2");
         this.el.useMinutes -= 1;
         this.el.useSeconds += 59;
-        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
-        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
-        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+        this.el.hoursDisplay.textContent =
+          this.el.useHours.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
       } else if (this.el.useHours > 0) {
         this.el.useHours -= 1;
         this.el.useMinutes += 59;
         this.el.useSeconds += 59;
-        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
-        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
-        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+        this.el.hoursDisplay.textContent =
+          this.el.useHours.toString().padStart(2, "0") + ":";
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
       }
     } else if (this.el.useMinutes + this.el.useSeconds > 0) {
       this.el.hoursDisplay.style.display = "none";
-
       if (this.el.useSeconds > 0) {
-        console.log("1");
         this.el.useSeconds -= 1;
-        this.el.hoursDisplay.textContent = h.toString().padStart(2, "0") + ":";
-        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
-        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
       } else if (this.el.useMinutes > 0) {
         console.log("2");
         this.el.useMinutes -= 1;
         this.el.useSeconds += 59;
-        this.el.minutesDisplay.textContent = m.toString().padStart(2, "0");
-        this.el.secondsDisplay.textContent = s.toString().padStart(2, "0");
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
       }
     }
     //console.log(targetTimer);
@@ -110,7 +127,6 @@ export default class Timer {
 
     this.interval = setInterval(() => {
       this.updateInterfaceTime();
-
       if (this.el.useMinutes + this.el.useSeconds + this.el.useHours === 0) {
         this.stop();
       }
@@ -149,8 +165,24 @@ export default class Timer {
       console.log(this.el.useHours);
       console.log(this.el.useMinutes);
       console.log(this.el.useSeconds);
-
-      this.updateInterfaceTime();
+      if (this.el.useHours > 0) {
+        this.el.hoursDisplay.style.display = "inline-block";
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
+        this.el.hoursDisplay.textContent =
+          this.el.useHours.toString().padStart(2, "0") + ":";
+      } else {
+        this.el.minutesDisplay.textContent = this.el.useMinutes
+          .toString()
+          .padStart(2, "0");
+        this.el.secondsDisplay.textContent = this.el.useSeconds
+          .toString()
+          .padStart(2, "0");
+      }
       this.closeModal();
     });
     this.el.modalClose.addEventListener("click", () => {
