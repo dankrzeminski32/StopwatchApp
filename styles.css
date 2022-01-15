@@ -685,6 +685,10 @@ input[type="number"] {
     padding: 6rem 11rem;
     white-space: nowrap;
   }
+  .timer__btn {
+    display: block;
+    margin: 1rem;
+  }
 }
 
 /* // Small devices (landscape phones, 576px and up) */
