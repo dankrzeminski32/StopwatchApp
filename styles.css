@@ -675,8 +675,55 @@ input[type="number"] {
   text-align: center;
 }
 
-@media (max-width: 768px) {
+/*Extra small*/
+
+@media (max-width: 575px) {
   html {
-    font-size: 10rem;
+    font-size: 8px;
   }
+  .timer {
+    padding: 6rem 11rem;
+    white-space: nowrap;
+  }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  html {
+    font-size: 10px;
+  }
+  .timer {
+    padding: 9rem 14rem;
+    white-space: nowrap;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  html {
+    font-size: 10px;
+  }
+  .timer {
+    padding: 9rem 14rem;
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  html {
+    font-size: 15px;
+  }
+  .timer {
+    padding: 9rem 14rem;
+  }
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  ...;
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  ...;
 }
