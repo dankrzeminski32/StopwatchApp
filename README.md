@@ -11,6 +11,8 @@
     Fully functional stopwatch & timer web application
     <br />
     <br />
+    <a href="https://dankrzeminski32.github.io/StopwatchApp/">View Demo</a>
+    ·
     <a href="https://github.com/dankrzeminski32/StopwatchApp/issues">Report Bug</a>
     ·
     <a href="https://github.com/dankrzeminski32/StopwatchApp/issues">Request Feature</a>
