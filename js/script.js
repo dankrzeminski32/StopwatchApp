@@ -11,13 +11,13 @@ const homeScreen = document.querySelector("#home-screen");
 const stopwatchView = document.querySelector("#stopwatch");
 const stopwatchBackButton = document.querySelector("#stopwatch-back-button");
 //var timerDisplay = document.querySelector(".timer-display");
-const timerBackButton = document.querySelector("#timer-back-button");
-const overlay = document.getElementById("overlay");
+//const timerBackButton = document.querySelector("#timer-back-button");
+//const overlay = document.getElementById("overlay");
 // const inputHours = document.querySelector("[data-hours]");
 // const inputMinutes = document.querySelector("[data-minutes]");
 // const inputSeconds = document.querySelector("[data-seconds]");
 // const inputTitle = document.querySelector("[data-title]");
-const addNewTimer = document.querySelectorAll("[data-add-new-timer]");
+//const addNewTimer = document.querySelectorAll("[data-add-new-timer]");
 //const playTimer = document.querySelector("[data-play-button]");
 
 var stopWatch = {

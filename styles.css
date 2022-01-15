@@ -677,6 +677,15 @@ input[type="number"] {
 
 /*Extra small*/
 
+@media (max-width: 414px) {
+  .main-flex {
+    padding: 0;
+  }
+  .time {
+    font-size: 9rem;
+  }
+}
+
 @media (max-width: 575px) {
   html {
     font-size: 8px;
@@ -720,14 +729,4 @@ input[type="number"] {
   .timer {
     padding: 9rem 14rem;
   }
-}
-
-/* // X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  ...;
-}
-
-/* // XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {
-  ...;
 }
